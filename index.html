@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nick Beattie — Engineering Projects</title>
+<meta name="description" content="Engineering projects by Nick Beattie, Integrated Engineering student at UBC.">
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #666;
+    --line: #e2e2e2;
+    --link: #1f4e99;
+    --placeholder: #eeeeec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.6;
+    font-size: 17px;
+  }
+  main { max-width: 820px; margin: 0 auto; padding: 56px 24px 80px; }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header h1 { font-size: 32px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  header p { margin: 0 0 12px; color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 15px; }
+
+  .project { padding: 44px 0; border-top: 1px solid var(--line); }
+  header + .project { margin-top: 40px; }
+  .project h2 { font-size: 22px; margin: 0; }
+  .meta { color: var(--muted); font-size: 14px; margin: 2px 0 18px; }
+  .project p { margin: 0 0 12px; }
+  .numbers { font-size: 15px; color: var(--muted); }
+  .numbers strong { color: var(--text); font-weight: 600; }
+
+  .media { display: grid; gap: 10px; margin: 0 0 18px; }
+  .media.two { grid-template-columns: 1fr 1fr; }
+  .media.three { grid-template-columns: 2fr 1fr 1fr; }
+  .media img, .media video { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; display: block; }
+
+  /* Placeholder boxes: delete once real photos are in */
+  .ph {
+    background: var(--placeholder);
+    border-radius: 4px;
+    aspect-ratio: 4 / 3;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 12px;
+    color: #8a8a86; font-size: 13px;
+  }
+  .ph.wide { aspect-ratio: 16 / 9; }
+  .todo { background: #fff3c4; padding: 0 3px; border-radius: 2px; }
+
+  footer { border-top: 1px solid var(--line); padding-top: 28px; color: var(--muted); font-size: 15px; }
+
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    main { padding-top: 36px; }
+    .media.two, .media.three { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>Nick Beattie</h1>
+  <p>Integrated Engineering student at UBC. I build hardware: RF, embedded systems, and robotics.</p>
+  <div class="links">
+    <a href="Beattie_Resume.pdf">Resume (PDF)</a>
+    <a href="mailto:nickbeattie20@gmail.com">nickbeattie20@gmail.com</a>
+    <a href="https://www.linkedin.com/in/nick-beattie-59684024b/">LinkedIn</a>
+    <a href="https://github.com/nickbeattie20">GitHub</a>
+  </div>
+</header>
+
+<section class="project">
+  <h2>Satellite Ground Station</h2>
+  <div class="meta">Personal project · Jul 2026 – present</div>
+  <div class="media three">
+    <div class="ph">Decoded Meteor-M image (your best one)</div>
+    <div class="ph">Antenna set up outside</div>
+    <div class="ph">SatDump screenshot showing SNR</div>
+  </div>
+  <p>A receiving station for weather satellites, built around an RTL-SDR V3 and a V-dipole antenna on a mount I designed and 3D-printed. It receives Meteor-M LRPT signals at 137 MHz, which I decode into images like the one above using SatDump.</p>
+  <p>To plan reception, I wrote a Python pass predictor that propagates satellite orbits from live TLE data (SGP4, via Skyfield) and models the expected Doppler shift and link budget for each pass.</p>
+  <p class="numbers"><strong>Results:</strong> <span class="todo">[N]</span> passes decoded · peak SNR <span class="todo">[X]</span> dB · link budget within <span class="todo">[X]</span> dB of measured · <a href="#">Code on GitHub</a></p>
+</section>
+
+<section class="project">
+  <h2>Autonomous Grabbing Claw</h2>
+  <div class="meta">APSC 101 team design challenge · 6-person team · Jan – Apr 2026</div>
+  <div class="media two">
+    <div class="ph wide">Video: claw lowering and grabbing on its own (5–10 s)</div>
+    <div class="ph wide">Close-up of the electronics / sensor layout</div>
+  </div>
+  <p>A servo-driven claw that grabs objects on its own. When it's lowered, an ultrasonic sensor detects the ground and the claw closes automatically, then releases the object at the drop location.</p>
+  <p>I wrote most of the Arduino code and designed the electronics and sensor layout. We placed top 3 of 25+ teams in the final challenge.</p>
+</section>
+
+<section class="project">
+  <h2>Autonomous Line-Following Robot</h2>
+  <div class="meta">IGEN 230, individual project · Sept – Oct 2026</div>
+  <div class="media two">
+    <div class="ph wide">Video: robot following the line</div>
+    <div class="ph wide">Photo of the robot</div>
+  </div>
+  <p>An ESP32-based robot I designed, wired, and programmed on my own. QRD1114 reflective sensors track the line with closed-loop steering control, and an ultrasonic sensor detects the target and triggers an arm to strike it.</p>
+  <p class="numbers"><strong>Results:</strong> <span class="todo">[X/Y successful runs · course time]</span></p>
+</section>
+
+<section class="project">
+  <h2>Spacecraft Attitude Control Simulation</h2>
+  <div class="meta">Personal project · Aug 2026 – present</div>
+  <div class="media two">
+    <div class="ph wide">Plot: step response (angle vs time)</div>
+    <div class="ph wide">Plot: raw sensor vs filtered estimate</div>
+  </div>
+  <p>A Python simulation of a satellite's attitude control loop: a PID controller drives the spacecraft to a target angle, using a noisy sensor model fused with a complementary filter. Next, I'm extending it to full 3-axis quaternion dynamics and a Kalman filter.</p>
+  <p class="numbers"><strong>Results:</strong> settling time <span class="todo">[X]</span> s · overshoot <span class="todo">[X]</span>% · filter cuts attitude error by <span class="todo">[X]</span>% · <a href="#">Code on GitHub</a></p>
+</section>
+
+<section class="project">
+  <h2>Modular Ground-Imaging Drone</h2>
+  <div class="meta">In progress · Nov 2026 – present</div>
+  <div class="media two">
+    <div class="ph wide">CAD render or current build</div>
+    <div class="ph wide">Swappable module close-up</div>
+  </div>
+  <p>A low-cost drone with swappable modules, for aerial imaging of local areas and quick reconfiguration between missions.</p>
+</section>
+
+<section class="project">
+  <h2>Electric Vehicle Braking System</h2>
+  <div class="meta">UW Electric Vehicle Challenge, high school team · 2023 – 2024</div>
+  <div class="media two">
+    <div class="ph wide">Fusion 360 model of the braking system</div>
+    <div class="ph wide">The car at the race</div>
+  </div>
+  <p>I designed the braking system for our team's competition electric vehicle in Fusion 360. The 20-student team built and raced the car, finishing top 10 of 20 teams with zero mechanical failures in the endurance race.</p>
+</section>
+
+<footer>
+  Get in touch: <a href="mailto:nickbeattie20@gmail.com">nickbeattie20@gmail.com</a>
+</footer>
+
+</main>
+</body>
+</html>
