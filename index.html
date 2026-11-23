@@ -41,7 +41,8 @@
   .media { display: grid; gap: 10px; margin: 0 0 18px; }
   .media > * { min-width: 0; }
   .media.two { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
-  .media.three { grid-template-columns: minmax(0,2fr) minmax(0,1fr) minmax(0,1fr); }
+  .media.three { grid-template-columns: minmax(0,2fr) minmax(0,1fr); }
+  .media.three > :first-child { grid-row: span 2; aspect-ratio: auto; height: 100%; }
   .media img, .media video { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; display: block; }
 
   /* Placeholder boxes: delete once real photos are in */
@@ -62,6 +63,7 @@
     body { font-size: 16px; }
     main { padding-top: 36px; }
     .media.two, .media.three { grid-template-columns: 1fr; }
+    .media.three > :first-child { grid-row: auto; aspect-ratio: 4 / 3; }
   }
 </style>
 </head>
