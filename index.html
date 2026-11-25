@@ -3,181 +3,199 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nick Beattie — Engineering Projects</title>
+<title>Nick Beattie | Engineering projects</title>
 <meta name="description" content="Engineering projects by Nick Beattie, Integrated Engineering student at UBC.">
 <style>
-  :root {
-    --text: #1a1a1a;
-    --muted: #666;
-    --line: #e2e2e2;
-    --link: #1f4e99;
-    --placeholder: #eeeeec;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    color: var(--text);
-    background: #fff;
-    line-height: 1.6;
-    font-size: 17px;
-  }
-  main { max-width: 820px; margin: 0 auto; padding: 56px 24px 80px; }
-  a { color: var(--link); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+@font-face { font-family:'Inter'; src:url('fonts/inter-latin-400-normal.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'Inter'; src:url('fonts/inter-latin-500-normal.woff2') format('woff2'); font-weight:500; font-display:swap; }
+@font-face { font-family:'Inter'; src:url('fonts/inter-latin-600-normal.woff2') format('woff2'); font-weight:600; font-display:swap; }
+:root { --text:#151515; --muted:#6f6f6b; --soft:#a6a5a0; --line:#e8e7e3; --panel:#f3f3f1; --bg:#fbfbfa; --link:#151515; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--bg); color:var(--text); font-family:'Inter',-apple-system,sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; letter-spacing:-0.005em; }
+a { color:inherit; }
+img { display:block; }
+.shell { max-width:1240px; margin:0 auto; padding:0 28px; }
 
-  header h1 { font-size: 32px; margin: 0 0 4px; letter-spacing: -0.01em; }
-  header p { margin: 0 0 12px; color: var(--muted); }
-  .links { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 15px; }
+/* Nav */
+nav { display:flex; align-items:center; justify-content:space-between; padding:22px 0; gap:16px; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:600; font-size:15.5px; text-decoration:none; }
+.tag { font-weight:500; font-size:12.5px; background:#ececea; color:#4a4a47; padding:4px 9px; border-radius:6px; }
+.navlinks { display:flex; gap:30px; font-size:15px; }
+.navlinks a { text-decoration:none; color:var(--text); }
+.navlinks a:hover { color:var(--muted); }
+.navright { display:flex; align-items:center; gap:8px; }
+.icon { width:36px; height:36px; border:1px solid #dcdbd6; border-radius:8px; display:grid; place-items:center; color:var(--text); }
+.icon svg { width:17px; height:17px; fill:currentColor; }
+.icon svg.stroke { fill:none; }
+.icon:hover { background:#f0f0ee; }
+.btn { background:var(--text); color:#fff; text-decoration:none; font-size:14px; font-weight:500; padding:9px 14px; border-radius:8px; margin-left:6px; }
+.btn:hover { background:#333; }
 
-  .project { padding: 44px 0; border-top: 1px solid var(--line); }
-  header + .project { margin-top: 40px; }
-  .project h2 { font-size: 22px; margin: 0; }
-  .meta { color: var(--muted); font-size: 14px; margin: 2px 0 18px; }
-  .project p { margin: 0 0 12px; }
-  .numbers { font-size: 15px; color: var(--muted); }
-  .numbers strong { color: var(--text); font-weight: 600; }
+/* Hero */
+.hero { position:relative; border-radius:14px; overflow:hidden; height:min(76vh, 720px); min-height:460px; background:#0d1424; }
+.hero img { width:100%; height:100%; object-fit:cover; }
+.hero::after { content:""; position:absolute; inset:auto 0 0 0; height:55%; background:linear-gradient(to top, rgba(5,9,18,.72), rgba(5,9,18,0)); pointer-events:none; }
+.hero-text { position:absolute; left:36px; bottom:32px; z-index:1; color:#fff; max-width:560px; }
+.hero-text h1 { font-size:clamp(44px,6vw,76px); line-height:1; font-weight:600; letter-spacing:-0.04em; margin:0 0 14px; }
+.hero-text p { font-size:17px; line-height:1.5; margin:0; color:rgba(255,255,255,.86); }
+.chip { position:absolute; right:24px; bottom:32px; z-index:1; display:flex; align-items:center; gap:10px; background:rgba(12,14,18,.72); backdrop-filter:blur(6px); color:#fff; font-size:12.5px; padding:8px 12px; border-radius:8px; }
+.chip .dot { width:7px; height:7px; border-radius:50%; background:#5ad17a; }
+.chip span.sep { width:1px; height:14px; background:rgba(255,255,255,.3); }
+.chip em { font-style:normal; color:rgba(255,255,255,.65); }
 
-  .media { display: grid; gap: 10px; margin: 0 0 18px; }
-  .media > * { min-width: 0; }
-  .media.two { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
-  .media.three { grid-template-columns: minmax(0,2fr) minmax(0,1fr); }
-  .media.three > :first-child { grid-row: span 2; aspect-ratio: auto; height: 100%; }
-  .media img, .media video { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; display: block; background: var(--placeholder); }
-  .media.two img, .media.two video { aspect-ratio: 16 / 9; }
-  .media.three > :first-child { aspect-ratio: auto; height: 100%; }
-  .media.one { grid-template-columns: 1fr; }
-  .media.one img { aspect-ratio: auto; object-fit: contain; background: none; }
-  figcaption { font-size: 13px; color: var(--muted); margin-top: -10px; margin-bottom: 16px; }
+/* Statement */
+.statement { padding:110px 0 70px; }
+.statement h2 { font-size:clamp(34px,4.4vw,56px); line-height:1.08; font-weight:500; letter-spacing:-0.035em; margin:0; max-width:900px; }
+.statement h2 span { color:var(--soft); }
 
-  /* Placeholder boxes: delete once real photos are in */
-  .ph {
-    background: var(--placeholder);
-    border-radius: 4px;
-    aspect-ratio: 4 / 3;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center; padding: 12px;
-    color: #8a8a86; font-size: 13px;
-  }
-  .ph.wide { aspect-ratio: 16 / 9; }
-  .todo { background: #fff3c4; padding: 0 3px; border-radius: 2px; }
+/* Cards */
+.cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.card { text-decoration:none; color:inherit; display:block; }
+.card .panel { background:var(--panel); border-radius:12px; aspect-ratio:4/3; overflow:hidden; display:grid; place-items:center; position:relative; }
+.card .panel img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.card:hover .panel img { transform:scale(1.025); }
+.card .big { text-align:center; }
+.card .big b { display:block; font-size:clamp(56px,7vw,92px); font-weight:500; letter-spacing:-0.05em; line-height:1; }
+.card .big span { display:block; margin-top:10px; color:var(--muted); font-size:14px; }
+.card .num { position:absolute; top:14px; left:16px; font-size:13px; color:var(--muted); }
+.card .panel.dark .num { color:rgba(255,255,255,.7); }
+.card .meta { display:flex; justify-content:space-between; gap:16px; padding:14px 2px 0; }
+.card h3 { margin:0; font-size:17px; font-weight:600; letter-spacing:-0.015em; }
+.card .meta p { margin:2px 0 0; color:var(--muted); font-size:14.5px; }
+.card .meta .when { color:var(--soft); font-size:13.5px; white-space:nowrap; padding-top:2px; }
 
-  footer { border-top: 1px solid var(--line); padding-top: 28px; color: var(--muted); font-size: 15px; }
+/* Detail sections */
+.details { margin-top:120px; }
+.label { font-size:13px; color:var(--muted); margin:0 0 8px; }
+.proj { display:grid; grid-template-columns:300px minmax(0,1fr); gap:56px; padding:56px 0; border-top:1px solid var(--line); scroll-margin-top:24px; }
+.spec { position:sticky; top:24px; align-self:start; }
+.spec .n { font-size:13px; color:var(--soft); }
+.spec h2 { font-size:24px; font-weight:600; letter-spacing:-0.025em; line-height:1.2; margin:6px 0 6px; }
+.spec .k { font-size:14px; color:var(--muted); margin:0 0 22px; }
+dl { margin:0; border-top:1px solid var(--line); }
+dl div { display:flex; justify-content:space-between; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); font-size:14.5px; }
+dt { color:var(--muted); } dd { margin:0; font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
+.spec .lk { margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; }
+.spec .lk a { font-size:13.5px; font-weight:500; text-decoration:none; border:1px solid #d9d8d3; border-radius:7px; padding:6px 10px; }
+.spec .lk a:hover { background:#f0f0ee; }
+.body p { margin:0 0 14px; font-size:17px; line-height:1.65; max-width:680px; }
+.media { display:grid; gap:10px; margin:0 0 18px; } .media > * { min-width:0; }
+.media.three { grid-template-columns:minmax(0,2fr) minmax(0,1fr); grid-template-rows:minmax(0,1fr) minmax(0,1fr); aspect-ratio:16/10; }
+.media.three img { width:100%; height:100%; object-fit:cover; border-radius:10px; background:var(--panel); cursor:zoom-in; }
+.media.three > :first-child { grid-row:span 2; }
+.media.one { margin:0 0 18px; } .media.one img { width:100%; border-radius:10px; cursor:zoom-in; background:#fff; }
+.cap { font-size:13.5px; color:var(--muted); margin:-6px 0 18px !important; }
 
-  @media (max-width: 600px) {
-    body { font-size: 16px; }
-    main { padding-top: 36px; }
-    .media.two, .media.three { grid-template-columns: 1fr; }
-    .media.three > :first-child { grid-row: auto; aspect-ratio: 4 / 3; }
-  }
+footer { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; border-top:1px solid var(--line); margin-top:40px; padding:28px 0 48px; font-size:14px; color:var(--muted); }
+footer a { text-decoration:none; color:var(--text); }
+
+.lightbox { position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; align-items:center; justify-content:center; padding:24px; z-index:20; cursor:zoom-out; }
+.lightbox.open { display:flex; } .lightbox img { max-width:100%; max-height:100%; border-radius:6px; }
+
+@media (max-width:820px) {
+  .navlinks { display:none; }
+  .tag { display:none; }
+  .hero { height:70vh; min-height:420px; }
+  .hero-text { left:20px; right:20px; bottom:64px; }
+  .hero-text p { font-size:15.5px; }
+  .chip { left:20px; right:auto; bottom:20px; }
+  .chip .sep, .chip em { display:none; }
+  .statement { padding:72px 0 44px; }
+  .cards { grid-template-columns:1fr; }
+  .proj { grid-template-columns:1fr; gap:22px; }
+  .spec { position:static; }
+}
 </style>
 </head>
 <body>
-<main>
+<div class="shell">
+  <nav>
+    <a class="brand" href="#">Nick Beattie <span class="tag">Engineering Student</span></a>
+    <div class="navlinks"><a href="#work">Work</a><a href="https://pass-predictor.streamlit.app">Live App</a><a href="#about">About</a></div>
+    <div class="navright">
+      <a class="icon" href="https://www.linkedin.com/in/nickbeattie20/" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.75Z"/></svg></a>
+      <a class="icon" href="mailto:nickbeattie20@gmail.com" aria-label="Email"><svg class="stroke" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></a>
+      <a class="btn" href="Beattie_Resume.pdf">Resume</a>
+    </div>
+  </nav>
 
-<header>
-  <h1>Nick Beattie</h1>
-  <p>Integrated Engineering student at UBC, specializing in mechanical and electrical. I design and build hardware end to end.</p>
-  <div class="links">
-    <a href="Beattie_Resume.pdf">Resume (PDF)</a>
-    <a href="mailto:nickbeattie20@gmail.com">nickbeattie20@gmail.com</a>
-    <a href="https://www.linkedin.com/in/nickbeattie20/">LinkedIn</a>
-  </div>
-</header>
+  <header class="hero">
+    <img src="images/hero.jpg" alt="Weather satellite image of British Columbia's coast and mountains, received with my own ground station">
+    <div class="hero-text">
+      <h1>Nick Beattie</h1>
+      <p>Second-year Integrated Engineering student at UBC, specializing in mechanical and electrical. Most of what I build involves radios, motors, or microcontrollers.</p>
+    </div>
+    <div class="chip"><span class="dot"></span>Received by my ground station<span class="sep"></span><em>Meteor-M2 4 · 137.9 MHz · Nov 1, 2026</em></div>
+  </header>
 
-<section class="project">
-  <h2>Satellite Ground Station &amp; Pass Predictor</h2>
-  <div class="meta">Personal project · Jul 2026 – present</div>
-  <div class="media three">
-    <img src="images/meteor-2026-11-01.jpg" alt="Weather satellite image of the Pacific Northwest, decoded from a Meteor-M2 4 pass">
-    <img src ="images/satdump_viewer" alt="V-Dipole antenna setup">
-    <img src ="images/antenna_setup" alt="SatDump screenshot showing SNR and waterfall">
-  </div>
-  <figcaption>Meteor-M2 4 pass over the Pacific Northwest, Nov 1, 2026, received and decoded with my station.</figcaption>
-  <p>A receiving station for weather satellites, built around an RTL-SDR V3 and a V-dipole antenna on a mount I designed and 3D-printed. It receives Meteor-M LRPT signals at 137 MHz, which I decode into images like the one above using SatDump.</p>
-  <p>To plan each pass, I wrote a pass predictor in Python that propagates satellite orbits (SGP4, via Skyfield) and models the expected Doppler shift and link budget. It runs as a live web app, with orbital data refreshed automatically every day by a GitHub Action.</p>
-  <p class="numbers"><strong>Results:</strong> 14.8 dB peak SNR · <a href="https://pass-predictor.streamlit.app">Live pass predictor</a> · <a href="https://github.com/nickbeattie20/pass-predictor">Code</a></p>
-</section>
+  <section class="statement" id="about">
+    <h2>I design, build, and test hardware. <span>Looking for a Summer 2027 co-op.</span></h2>
+  </section>
 
-<section class="project">
-  <h2>Autonomous Line-Following Robot</h2>
-  <div class="meta">IGEN 230, individual project · Sept – Oct 2026</div>
-  <div class="media two">
-    <div class="ph wide">Video: robot following the line</div>
-    <div class="ph wide">Photo of the robot</div>
-  </div>
-  <p>An ESP32-based robot I designed, wired, and programmed on my own. QRD1114 reflective sensors track the line with closed-loop steering, tuned to handle breaks in the line and 90° turns. An ultrasonic sensor detects the target and triggers an arm to strike it.</p>
-  <p class="numbers"><strong>Results:</strong> completed 4/4 competition courses · recovers a lost line in ~0.2 s</p>
-</section>
+  <section class="cards" id="work">
+    <a class="card" href="#ground-station">
+      <div class="panel"><span class="num">01</span><img src="images/antenna_setup" alt=""></div>
+      <div class="meta"><div><h3>Satellite Ground Station &amp; Pass Predictor</h3><p>Receiving and decoding live weather satellite images.</p></div><div class="when">Ongoing</div></div>
+    </a><a class="card" href="#line-robot">
+      <div class="panel"><span class="num">02</span><div class="big"><b>4 / 4</b><span>competition courses</span></div></div>
+      <div class="meta"><div><h3>Autonomous Line-Following Robot</h3><p>ESP32 robot that tracks a line, finds a target, and strikes it.</p></div><div class="when">Oct 2026</div></div>
+    </a><a class="card" href="#drone">
+      <div class="panel"><span class="num">03</span><div class="big"><b>&lt; 30 s</b><span>target payload swap</span></div></div>
+      <div class="meta"><div><h3>Modular Payload Drone</h3><p>One drone, swappable camera, light, and sensor modules.</p></div><div class="when">Ongoing</div></div>
+    </a><a class="card" href="#claw">
+      <div class="panel"><span class="num">04</span><div class="big"><b>13 / 16</b><span>objects picked up</span></div></div>
+      <div class="meta"><div><h3>Autonomous Grabbing Claw</h3><p>Claw that senses the ground, grabs on its own, and releases at the drop zone.</p></div><div class="when">Dec 2025</div></div>
+    </a><a class="card" href="#attitude">
+      <div class="panel"><span class="num">05</span><div class="big"><b>1.5 s</b><span>settling time, down from 7.8 s</span></div></div>
+      <div class="meta"><div><h3>Single-Axis Attitude Control Simulation</h3><p>PID control and sensor fusion for a satellite&#x27;s orientation.</p></div><div class="when">Aug 2026</div></div>
+    </a><a class="card" href="#ev-brakes">
+      <div class="panel"><span class="num">06</span><div class="big"><b>Top 10</b><span>of 20 teams, zero failures</span></div></div>
+      <div class="meta"><div><h3>Electric Vehicle Braking System</h3><p>Brakes for a 20-student competition EV.</p></div><div class="when">Jun 2024</div></div>
+    </a>
+  </section>
 
-<section class="project">
-  <h2>Modular Payload Drone</h2>
-  <div class="meta">IGEN 230 team project, in progress · Nov 2026 – present</div>
-  <div class="media two">
-    <div class="ph wide">CAD render or current build</div>
-    <div class="ph wide">Swappable module close-up</div>
-  </div>
-  <p>A drone built around one standardized payload interface: a shared mechanical mount and power/data connection, so the same aircraft can carry a camera, a light, or a sensor module, swapped in the field.</p>
-  <p class="numbers"><strong>Design targets:</strong> tool-free payload swap in under 30 s · under 250 g (no pilot certificate required) · $200 budget</p>
-</section>
+  <section class="details">
+    <section class="proj" id="ground-station">
+    <aside class="spec"><div class="n">01</div><h2>Satellite Ground Station &amp; Pass Predictor</h2><div class="k">Personal project · Jul 2026 – present</div><dl><div><dt>Peak SNR</dt><dd>14.8 dB</dd></div><div><dt>Downlink</dt><dd>137.9 MHz</dd></div><div><dt>Predicted Doppler</dt><dd>±3.1 kHz</dd></div></dl><div class="lk"><a href="https://pass-predictor.streamlit.app">Live pass predictor ↗</a><a href="https://github.com/nickbeattie20/pass-predictor">Code ↗</a></div></aside>
+    <div class="body"><div class="media three">
+      <img src="images/meteor-2026-11-01.jpg" alt="Weather satellite image of the Pacific Northwest, decoded from a Meteor-M2 4 pass">
+      <img src="images/satdump_viewer" alt="SatDump screenshot showing SNR and waterfall">
+      <img src="images/antenna_setup" alt="V-dipole antenna setup">
+    </div>
+    <p class="cap">Meteor-M2 4 pass over the Pacific Northwest, Nov 1, 2026, received and decoded with my station.</p><p>A ground station for weather satellites: an RTL-SDR V3 and a V-dipole antenna on a mount I designed and printed. Meteor-M satellites transmit images at 137.9 MHz as they pass overhead, and SatDump turns the recording into pictures like this one, taken from about 830 km up.</p><p>Catching a pass means knowing exactly when the satellite will be overhead, so I wrote a predictor that works that out from orbital data, along with the Doppler shift and expected signal strength. It runs as a live web app, and a GitHub Action updates the orbital data every night.</p></div>
+  </section><section class="proj" id="line-robot">
+    <aside class="spec"><div class="n">02</div><h2>Autonomous Line-Following Robot</h2><div class="k">IGEN 230 · Individual · Sept – Oct 2026</div><dl><div><dt>Competition courses</dt><dd>4 / 4</dd></div><div><dt>Lost-line recovery</dt><dd>~0.2 s</dd></div><div><dt>Built</dt><dd>Solo</dd></div></dl></aside>
+    <div class="body"><p>My first IGEN 230 project, built on my own: an ESP32 robot that follows a line using QRD1114 reflectance sensors, then uses an ultrasonic sensor to find a watermelon and bring an arm down on it. Most of the tuning went into the steering loop, so it could handle gaps in the line and 90° corners.</p></div>
+  </section><section class="proj" id="drone">
+    <aside class="spec"><div class="n">03</div><h2>Modular Payload Drone</h2><div class="k">IGEN 230 · Team · In progress · Nov 2026 – present</div><dl><div><dt>Payload swap</dt><dd>&lt; 30 s</dd></div><div><dt>Mass</dt><dd>&lt; 250 g</dd></div><div><dt>Budget</dt><dd>$200</dd></div></dl></aside>
+    <div class="body"><p>Our IGEN 230 team project, just getting started. The idea is one drone with a standard payload mount, carrying both the mechanical connection and power/data, so a camera, light, or sensor module can be swapped in the field without tools.</p></div>
+  </section><section class="proj" id="claw">
+    <aside class="spec"><div class="n">04</div><h2>Autonomous Grabbing Claw</h2><div class="k">APSC 101 · Team of 6 · Sept – Dec 2025</div><dl><div><dt>Objects picked up</dt><dd>13 / 16</dd></div><div><dt>Final challenge</dt><dd>Top 3 of 25+</dd></div><div><dt>Team</dt><dd>6</dd></div></dl></aside>
+    <div class="body"><p>First-year design challenge, in a team of six. You lower the claw by hand; once the ultrasonic sensor reads that it&#x27;s close enough to the ground, a servo closes it on its own, and it only lets go at the drop zone.</p><p>I wrote most of the Arduino code and laid out the electronics and sensors.</p></div>
+  </section><section class="proj" id="attitude">
+    <aside class="spec"><div class="n">05</div><h2>Single-Axis Attitude Control Simulation</h2><div class="k">Personal project · Jul – Aug 2026</div><dl><div><dt>Settling time</dt><dd>7.8 → 1.5 s</dd></div><div><dt>Overshoot</dt><dd>36 → 3%</dd></div><div><dt>Estimate error</dt><dd>−87%</dd></div></dl></aside>
+    <div class="body"><figure class="media one"><img src="images/adcs-response.jpg" alt="Plots of true, measured and filtered angle, control error, and filter estimate error over time"></figure><p>A single-axis model of how a satellite holds its orientation: a PID controller, a noisy simulated sensor, and a complementary filter to clean up the measurement. The first set of gains overshot badly, so I retuned them for critical damping (ζ = 1).</p></div>
+  </section><section class="proj" id="ev-brakes">
+    <aside class="spec"><div class="n">06</div><h2>Electric Vehicle Braking System</h2><div class="k">UW EV Challenge · High school team · Jan – Jun 2024</div><dl><div><dt>Finish</dt><dd>Top 10 of 20</dd></div><div><dt>Mechanical failures</dt><dd>0</dd></div><div><dt>Team</dt><dd>20</dd></div></dl></aside>
+    <div class="body"><p>A high school team build for the University of Waterloo EV Challenge. I was responsible for the brakes, which I worked out through testing and iteration rather than CAD.</p></div>
+  </section>
+  </section>
 
-<section class="project">
-  <h2>Autonomous Grabbing Claw</h2>
-  <div class="meta">APSC 101 team design challenge · 6-person team · Sept – Dec 2025</div>
-  <div class="media two">
-    <div class="ph wide">Video: claw lowering and grabbing on its own (5–10 s)</div>
-    <div class="ph wide">Close-up of the electronics / sensor layout</div>
-  </div>
-  <p>A servo-driven claw that grabs objects on its own. As it's lowered, an ultrasonic sensor measures the distance to the ground and the claw closes automatically, then releases the object only once it reaches the drop location.</p>
-  <p>I wrote most of the Arduino code and designed the electronics and sensor layout.</p>
-  <p class="numbers"><strong>Results:</strong> picked up 13/16 differently shaped objects in testing · top 3 of 25+ teams</p>
-</section>
+  <footer>
+    <span>Nick Beattie · Vancouver, BC · Updated November 2026</span>
+    <span><a href="mailto:nickbeattie20@gmail.com">nickbeattie20@gmail.com</a></span>
+  </footer>
+</div>
 
-<section class="project">
-  <h2>Single-Axis Attitude Control Simulation</h2>
-  <div class="meta">Personal project · Jul – Aug 2026</div>
-  <figure class="media one" style="margin:0 0 18px">
-    <img src="images/adcs-response.jpg" alt="Plots of true, measured and filtered angle, control error, and filter estimate error over time">
-  </figure>
-  <p>A Python simulation of a spacecraft attitude control loop: a PID controller drives the spacecraft to a target angle using a noisy sensor model fused with a complementary filter. I tuned the gains for critical damping (damping ratio ζ = 1).</p>
-  <p class="numbers"><strong>Results:</strong> settling time 7.8 s → 1.5 s · overshoot 36% → 3% · filter cuts attitude estimate error by 87%</p>
-</section>
-
-<section class="project">
-  <h2>Electric Vehicle Braking System</h2>
-  <div class="meta">UW Electric Vehicle Challenge, high school team · Jan – Jun 2024</div>
-  <div class="media two">
-    <div class="ph wide">The braking system</div>
-    <div class="ph wide">The car at the race</div>
-  </div>
-  <p>I designed the braking system for our team's competition electric vehicle through iterative testing and experimentation. The 20-student team built and raced the car, finishing top 10 of 20 teams with zero mechanical failures in the endurance race.</p>
-</section>
-
-<footer>
-  Get in touch: <a href="mailto:nickbeattie20@gmail.com">nickbeattie20@gmail.com</a>
-</footer>
-
-</main>
-<style>
-  .media img { cursor: zoom-in; }
-  .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.88); display: none;
-              align-items: center; justify-content: center; padding: 24px; z-index: 10; cursor: zoom-out; }
-  .lightbox.open { display: flex; }
-  .lightbox img { max-width: 100%; max-height: 100%; border-radius: 4px; }
-</style>
 <div class="lightbox" id="lightbox"><img alt=""></div>
 <script>
-  const lb = document.getElementById("lightbox");
-  const lbImg = lb.querySelector("img");
-  document.querySelectorAll(".media img").forEach(img => {
-    img.addEventListener("click", () => {
-      lbImg.src = img.src;
-      lbImg.alt = img.alt;
-      lb.classList.add("open");
-    });
-  });
+  const lb = document.getElementById("lightbox"), lbImg = lb.querySelector("img");
+  document.querySelectorAll(".media img").forEach(img => img.addEventListener("click", () => {
+    lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add("open");
+  }));
   lb.addEventListener("click", () => lb.classList.remove("open"));
-  document.addEventListener("keydown", e => { if (e.key === "Escape") lb.classList.remove("open"); });
+  document.addEventListener("keydown", ev => { if (ev.key === "Escape") lb.classList.remove("open"); });
 </script>
 </body>
 </html>
