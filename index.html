@@ -43,7 +43,12 @@
   .media.two { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
   .media.three { grid-template-columns: minmax(0,2fr) minmax(0,1fr); }
   .media.three > :first-child { grid-row: span 2; aspect-ratio: auto; height: 100%; }
-  .media img, .media video { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; display: block; }
+  .media img, .media video { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; display: block; background: var(--placeholder); }
+  .media.two img, .media.two video { aspect-ratio: 16 / 9; }
+  .media.three > :first-child { aspect-ratio: auto; height: 100%; }
+  .media.one { grid-template-columns: 1fr; }
+  .media.one img { aspect-ratio: auto; object-fit: contain; background: none; }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: -10px; margin-bottom: 16px; }
 
   /* Placeholder boxes: delete once real photos are in */
   .ph {
@@ -77,32 +82,21 @@
     <a href="Beattie_Resume.pdf">Resume (PDF)</a>
     <a href="mailto:nickbeattie20@gmail.com">nickbeattie20@gmail.com</a>
     <a href="https://www.linkedin.com/in/nickbeattie20/">LinkedIn</a>
-    <a href="https://github.com/nickbeattie20">GitHub</a>
   </div>
 </header>
 
 <section class="project">
-  <h2>Satellite Ground Station</h2>
+  <h2>Satellite Ground Station &amp; Pass Predictor</h2>
   <div class="meta">Personal project · Jul 2026 – present</div>
   <div class="media three">
-    <div class="ph">Decoded Meteor-M image (your best one)</div>
+    <img src="images/meteor-2026-11-01.jpg" alt="Weather satellite image of the Pacific Northwest, decoded from a Meteor-M2 4 pass">
     <div class="ph">Antenna set up outside</div>
     <div class="ph">SatDump screenshot showing SNR</div>
   </div>
+  <figcaption>Meteor-M2 4 pass over the Pacific Northwest, Nov 1, 2026, received and decoded with my station.</figcaption>
   <p>A receiving station for weather satellites, built around an RTL-SDR V3 and a V-dipole antenna on a mount I designed and 3D-printed. It receives Meteor-M LRPT signals at 137 MHz, which I decode into images like the one above using SatDump.</p>
-  <p>To plan reception, I wrote a Python pass predictor that propagates satellite orbits from live TLE data (SGP4, via Skyfield) and models the expected Doppler shift and link budget for each pass.</p>
-  <p class="numbers"><strong>Results:</strong> <span class="todo">[N]</span> passes decoded · peak SNR <span class="todo">[X]</span> dB · link budget within <span class="todo">[X]</span> dB of measured · <a href="#">Code on GitHub</a></p>
-</section>
-
-<section class="project">
-  <h2>Autonomous Grabbing Claw</h2>
-  <div class="meta">APSC 101 team design challenge · 6-person team · Jan – Apr 2026</div>
-  <div class="media two">
-    <div class="ph wide">Video: claw lowering and grabbing on its own (5–10 s)</div>
-    <div class="ph wide">Close-up of the electronics / sensor layout</div>
-  </div>
-  <p>A servo-driven claw that grabs objects on its own. When it's lowered, an ultrasonic sensor detects the ground and the claw closes automatically, then releases the object at the drop location.</p>
-  <p>I wrote most of the Arduino code and designed the electronics and sensor layout. We placed top 3 of 25+ teams in the final challenge.</p>
+  <p>To plan each pass, I wrote a pass predictor in Python that propagates satellite orbits (SGP4, via Skyfield) and models the expected Doppler shift and link budget. It runs as a live web app, with orbital data refreshed automatically every day by a GitHub Action.</p>
+  <p class="numbers"><strong>Results:</strong> 14.8 dB peak SNR · <a href="https://pass-predictor.streamlit.app">Live pass predictor</a> · <a href="https://github.com/nickbeattie20/pass-predictor">Code</a></p>
 </section>
 
 <section class="project">
@@ -112,39 +106,51 @@
     <div class="ph wide">Video: robot following the line</div>
     <div class="ph wide">Photo of the robot</div>
   </div>
-  <p>An ESP32-based robot I designed, wired, and programmed on my own. QRD1114 reflective sensors track the line with closed-loop steering control, and an ultrasonic sensor detects the target and triggers an arm to strike it.</p>
-  <p class="numbers"><strong>Results:</strong> <span class="todo">[X/Y successful runs · course time]</span></p>
+  <p>An ESP32-based robot I designed, wired, and programmed on my own. QRD1114 reflective sensors track the line with closed-loop steering, tuned to handle breaks in the line and 90° turns. An ultrasonic sensor detects the target and triggers an arm to strike it.</p>
+  <p class="numbers"><strong>Results:</strong> completed 4/4 competition courses · recovers a lost line in ~0.2 s</p>
 </section>
 
 <section class="project">
-  <h2>Spacecraft Attitude Control Simulation</h2>
-  <div class="meta">Personal project · Aug 2026 – present</div>
-  <div class="media two">
-    <div class="ph wide">Plot: step response (angle vs time)</div>
-    <div class="ph wide">Plot: raw sensor vs filtered estimate</div>
-  </div>
-  <p>A Python simulation of a satellite's attitude control loop: a PID controller drives the spacecraft to a target angle, using a noisy sensor model fused with a complementary filter. Next, I'm extending it to full 3-axis quaternion dynamics and a Kalman filter.</p>
-  <p class="numbers"><strong>Results:</strong> settling time <span class="todo">[X]</span> s · overshoot <span class="todo">[X]</span>% · filter cuts attitude error by <span class="todo">[X]</span>% · <a href="#">Code on GitHub</a></p>
-</section>
-
-<section class="project">
-  <h2>Modular Ground-Imaging Drone</h2>
-  <div class="meta">In progress · Nov 2026 – present</div>
+  <h2>Modular Payload Drone</h2>
+  <div class="meta">IGEN 230 team project, in progress · Nov 2026 – present</div>
   <div class="media two">
     <div class="ph wide">CAD render or current build</div>
     <div class="ph wide">Swappable module close-up</div>
   </div>
-  <p>A low-cost drone with swappable modules, for aerial imaging of local areas and quick reconfiguration between missions.</p>
+  <p>A drone built around one standardized payload interface: a shared mechanical mount and power/data connection, so the same aircraft can carry a camera, a light, or a sensor module, swapped in the field.</p>
+  <p class="numbers"><strong>Design targets:</strong> tool-free payload swap in under 30 s · under 250 g (no pilot certificate required) · $200 budget</p>
+</section>
+
+<section class="project">
+  <h2>Autonomous Grabbing Claw</h2>
+  <div class="meta">APSC 101 team design challenge · 6-person team · Sept – Dec 2025</div>
+  <div class="media two">
+    <div class="ph wide">Video: claw lowering and grabbing on its own (5–10 s)</div>
+    <div class="ph wide">Close-up of the electronics / sensor layout</div>
+  </div>
+  <p>A servo-driven claw that grabs objects on its own. As it's lowered, an ultrasonic sensor measures the distance to the ground and the claw closes automatically, then releases the object only once it reaches the drop location.</p>
+  <p>I wrote most of the Arduino code and designed the electronics and sensor layout.</p>
+  <p class="numbers"><strong>Results:</strong> picked up 13/16 differently shaped objects in testing · top 3 of 25+ teams</p>
+</section>
+
+<section class="project">
+  <h2>Single-Axis Attitude Control Simulation</h2>
+  <div class="meta">Personal project · Jul – Aug 2026</div>
+  <figure class="media one" style="margin:0 0 18px">
+    <img src="images/adcs-response.jpg" alt="Plots of true, measured and filtered angle, control error, and filter estimate error over time">
+  </figure>
+  <p>A Python simulation of a spacecraft attitude control loop: a PID controller drives the spacecraft to a target angle using a noisy sensor model fused with a complementary filter. I tuned the gains for critical damping (damping ratio ζ = 1).</p>
+  <p class="numbers"><strong>Results:</strong> settling time 7.8 s → 1.5 s · overshoot 36% → 3% · filter cuts attitude estimate error by 87%</p>
 </section>
 
 <section class="project">
   <h2>Electric Vehicle Braking System</h2>
-  <div class="meta">UW Electric Vehicle Challenge, high school team · 2023 – 2024</div>
+  <div class="meta">UW Electric Vehicle Challenge, high school team · Jan – Jun 2024</div>
   <div class="media two">
-    <div class="ph wide">Fusion 360 model of the braking system</div>
+    <div class="ph wide">The braking system</div>
     <div class="ph wide">The car at the race</div>
   </div>
-  <p>I designed the braking system for our team's competition electric vehicle in Fusion 360. The 20-student team built and raced the car, finishing top 10 of 20 teams with zero mechanical failures in the endurance race.</p>
+  <p>I designed the braking system for our team's competition electric vehicle through iterative testing and experimentation. The 20-student team built and raced the car, finishing top 10 of 20 teams with zero mechanical failures in the endurance race.</p>
 </section>
 
 <footer>
